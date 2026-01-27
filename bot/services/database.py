@@ -16,12 +16,20 @@ class DatabaseService:
     """Сервис для работы с базой данных."""
     
     def __init__(self, database_url: str):
-        self.engine = create_async_engine(
-            database_url,
-            echo=False,
-            pool_size=10,
-            max_overflow=20
-        )
+        # SQLite не поддерживает pool_size, поэтому проверяем тип БД
+        if database_url.startswith("sqlite"):
+            self.engine = create_async_engine(
+                database_url,
+                echo=False
+            )
+        else:
+            # PostgreSQL и другие
+            self.engine = create_async_engine(
+                database_url,
+                echo=False,
+                pool_size=10,
+                max_overflow=20
+            )
         self.async_session = async_sessionmaker(
             self.engine,
             class_=AsyncSession,
