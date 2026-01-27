@@ -13,6 +13,7 @@ from bot.services.database import init_database, get_db
 from bot.services.ai_service import init_ai_service
 from bot.services.payment_monitor import init_payment_monitor, get_payment_monitor
 from bot.services.scheduler import init_scheduler, get_scheduler
+from bot.handlers import register_all_handlers
 
 # Load environment variables
 load_dotenv()

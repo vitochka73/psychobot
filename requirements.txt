@@ -28,4 +28,5 @@ python-dateutil==2.9.0
 aiohttp==3.9.5
 
 # QR code generation
-qrcode[pil]==7.4.2
+qrcode==7.4.2
+Pillow==10.3.0
