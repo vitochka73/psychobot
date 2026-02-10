@@ -31,18 +31,23 @@ class CryptoPayClient:
         """Выполняет запрос к API."""
         url = f"{CRYPTO_PAY_API_URL}/{endpoint}"
         
+        logger.info(f"Crypto Pay request: {method} {endpoint} data={data}")
+        
         async with aiohttp.ClientSession() as session:
             if method == "GET":
                 async with session.get(url, headers=self.headers, params=data) as response:
                     result = await response.json()
+                    logger.info(f"Crypto Pay response: {result}")
             else:
                 async with session.post(url, headers=self.headers, json=data) as response:
                     result = await response.json()
+                    logger.info(f"Crypto Pay response: {result}")
             
             if not result.get("ok"):
                 error = result.get("error", {})
-                logger.error(f"Crypto Pay API error: {error}")
-                raise Exception(f"Crypto Pay API error: {error.get('name', 'Unknown')}")
+                error_msg = result.get("error", result)
+                logger.error(f"Crypto Pay API error: {error_msg}")
+                raise Exception(f"Crypto Pay API error: {error_msg}")
             
             return result.get("result")
     

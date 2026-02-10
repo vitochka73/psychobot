@@ -25,3 +25,16 @@ from .clinical_profiles import (
     get_all_profiles,
     print_profile_summary,
 )
+
+from .regulatory_circuits import (
+    CircuitType,
+    ResponseType,
+    StressResponse,
+    RegulatoryCircuit,
+    REGULATORY_CIRCUITS,
+    get_circuit,
+    get_circuit_by_formula,
+    get_all_circuits,
+    print_circuit_summary,
+    get_circuit_matrix,
+)
